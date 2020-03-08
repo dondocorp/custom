@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Sku:</strong>
+  <%= @product.sku %>
+</p>
+
+<p>
+  <strong>Batch size:</strong>
+  <%= @product.batch_size %>
+</p>
+
+<p>
+  <strong>Unit Type:</strong>
+  <%= @product.unit_type %>
+</p>
+
+<%= link_to 'Edit', edit_product_path(@product) %> |
+<%= link_to 'Back', products_path %>

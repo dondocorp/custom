@@ -1,0 +1,67 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Product:</strong>
+  <%= @input.product %>
+</p>
+
+<p>
+  <strong>Quantity:</strong>
+  <%= @input.quantity %>
+</p>
+
+<p>
+  <strong>Created at:</strong>
+  <%= @input.created_at.to_date %>
+</p>
+
+<p>
+  <strong>Delivery date:</strong>
+  <%= @input.delivery_date %>
+</p>
+
+<p>
+  <strong>Deliverable?</strong>
+  
+  <%= @capable %>
+</p>
+
+<p>
+  <strong>When?</strong>
+  
+  <%= @proposed %>
+</p>
+
+<p>
+  <strong>Days Required?</strong>
+  
+  <%= @days_required %>
+</p>
+
+<p>
+  <strong>Days Schedule</strong>
+  
+  <table>
+  <thead>
+    <tr>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @days_list.each do |day| %>
+      <tr>
+        <td><%= day %></td>
+       
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</p>
+
+<p>
+    <strong>Observations</strong>
+  <%= @input.observations %>
+  </p>
+
+<%= link_to 'Edit', edit_input_path(@input) %> |
+<%= link_to 'Back', inputs_path %>

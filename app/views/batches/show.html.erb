@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Input:</strong>
+  <%= @batch.input %>
+</p>
+
+<p>
+  <strong>Product:</strong>
+  <%= @batch.product %>
+</p>
+
+<p>
+  <strong>Cook date:</strong>
+  <%= @batch.cook_date %>
+</p>
+
+<%= link_to 'Edit', edit_batch_path(@batch) %> |
+<%= link_to 'Back', batches_path %>
