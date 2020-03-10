@@ -1,0 +1,32 @@
+<%= form_with(model: turn, local: true) do |form| %>
+  <% if turn.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(turn.errors.count, "error") %> prohibited this turn from being saved:</h2>
+
+      <ul>
+        <% turn.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :production_date %>
+    <%= form.date_select :production_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :turn_number %>
+    <%= form.number_field :turn_number %>
+  </div>
+
+  <div class="field">
+    <%= form.label :product %>
+    <%= form.text_field :product %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

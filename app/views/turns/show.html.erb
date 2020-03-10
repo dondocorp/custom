@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Production date:</strong>
+  <%= @turn.production_date %>
+</p>
+
+<p>
+  <strong>Turn number:</strong>
+  <%= @turn.turn_number %>
+</p>
+
+<p>
+  <strong>Product:</strong>
+  <%= @turn.product %>
+</p>
+
+<%= link_to 'Edit', edit_turn_path(@turn) %> |
+<%= link_to 'Back', turns_path %>

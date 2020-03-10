@@ -3,6 +3,7 @@
 <p>
   <strong>Product:</strong>
   <%= @input.product %>
+  Size: <%= @batch_size %>
 </p>
 
 <p>
@@ -62,6 +63,15 @@
     <strong>Observations</strong>
   <%= @input.observations %>
   </p>
+
+
+<%= form_with url: book_path, local: true, method: :post do %>
+  
+  <%= hidden_field :product_list, value: @turns_list %>
+  <%= submit_tag "Book Turns!" %>
+ <% end %>
+
+
 
 <%= link_to 'Edit', edit_input_path(@input) %> |
 <%= link_to 'Back', inputs_path %>

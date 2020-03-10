@@ -10,29 +10,61 @@ class InputsController < ApplicationController
   # GET /inputs/1
   # GET /inputs/1.json
   def show
+
+    #Values retrieved
     @selected_product = (Product.where(sku: @input.product).first)
     @batch_size = @selected_product.batch_size
-    @days_required = @input.quantity/@batch_size
+    @remaining_product = @input.quantity
     
-    @proposed = Date.current + @days_required
+    #Settings 
+    @batches_per_day = 4
+    
+
+    #Calculations
+    @days_required =  [1,@input.quantity/(@batches_per_day*@batch_size)].max
+    @proposed = Date.current.advance(days: @days_required)
     @capable = @proposed < @input.delivery_date
 
+    #Days Loop
     @days_list = Array.new
-
     @i = @input.quantity
     @day_counter = 1
-    
+
+    #Full schedule 
+    @turns_list = Array.new
+
     while @i > 0  do
-      @day_quantity = [@i,@batch_size].min
-    
+      
+      #Calculate production date
       @temporal_date = @input.created_at.to_date + @day_counter
+
+      #Day Hops. Sundays and soon holidays.
       if(@temporal_date.sunday?) then
         @temporal_date += 1
         @day_counter += 1
       end
-      @temporal_text = "El día "+ l(@temporal_date, format: '%B %d') +" habrá que producir "+@day_quantity.to_s+" "+@selected_product.unit_type
+      
+      #Turns per day loop
+      
+      @turno = 1
+      while (@turno<(@batches_per_day+1) and @remaining_product > 0) do
+      
+      #Booking Turn creation
+      @temporal_text = "El día " + l(@temporal_date, format: '%B %d') + " en el turno " + @turno.to_s + " habrá que producir " + @batch_size.to_s + " " + @selected_product.unit_type
+      #@turns_list.push([@temporal_date,@turno, @input.product])
+      @turns_list.push(@temporal_date.to_s+";"+@turno.to_s+";"+@input.product.to_s)
+
+      #Booking Turn saving
       @days_list.push(@temporal_text)
-      @i -= @batch_size
+      
+      #Turns per day Advancement
+      @turno +=1
+      @remaining_product -= @batch_size
+
+      end
+
+      #Day Advancement 
+      @i -= @batch_size*@batches_per_day
       @day_counter += 1
     end
 
